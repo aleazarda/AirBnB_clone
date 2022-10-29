@@ -15,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
     """Contains the entry point of the command interpreter."""
     prompt = '(hbnh) '
     __cls_names = {
-            "BaseModel", 
+            "BaseModel",
             "User",
             "State",
             "City",
@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        """Creates an inst. of BaseModel, saves it to JSON file and prints id"""
+        """Creates an instance. of BaseModel and prints its id"""
         ags = arg.split()
         if len(ags) == 0:
             print("** class name missing **")
@@ -71,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif ags[0] not in HBNBCommand.__cls_names:
             print("** class doesn't exist **")
-        elif len (ags) == 1:
+        elif len(ags) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(ags[0], ags[1]) not in all_obj:
             print("** no instance found **")
@@ -115,16 +115,15 @@ class HBNBCommand(cmd.Cmd):
         if len(ags) == 2:
             print("** attribute name missing **")
         if len(ags) == 3:
-            print ("** value missing **")
+            print("** value missing **")
         if len(ags) == 4:
-                obj = all_obj["{}.{}".format(ags[0], ags[1])]
-                if ags[2] in obj.__class__.__dict__.keys():
-                    type_arg2 = type(obj.__class__.__dict__[ags[2]])
-                    obj.__dict__[ags[2]] = type_arg2(ags[3])
-                else:
-                    obj.__dict__[ags[2]]  = ags[3]
+            obj = all_obj["{}.{}".format(ags[0], ags[1])]
+            if ags[2] in obj.__class__.__dict__.keys():
+                type_arg2 = type(obj.__class__.__dict__[ags[2]])
+                obj.__dict__[ags[2]] = type_arg2(ags[3])
+            else:
+                obj.__dict__[ags[2]] = ags[3]
         storage.save()
-
 
 
 if __name__ == '__main__':
