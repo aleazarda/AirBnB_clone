@@ -1,4 +1,4 @@
-![HolbertonBnB Logo](https://github.com/TZITA/AirBnB_clone/blob/main/Addidtionals/HBNBlogo.png)
+![HolbertonBnB Logo](https://github.com/TZITA/AirBnB_clone/blob/main/Additionals/HBNBlogo.png)
 # *HolbertonBnB*
 ## AirBnB Clone
 
