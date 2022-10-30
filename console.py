@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Entry point of the command interpreter,"""
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -114,8 +115,10 @@ class HBNBCommand(cmd.Cmd):
             return False
         if len(ags) == 2:
             print("** attribute name missing **")
+            return False
         if len(ags) == 3:
             print("** value missing **")
+            return False
         if len(ags) == 4:
             obj = all_obj["{}.{}".format(ags[0], ags[1])]
             if ags[2] in obj.__class__.__dict__.keys():
@@ -124,6 +127,36 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj.__dict__[ags[2]] = ags[3]
         storage.save()
+
+    def default(self, arg):
+        """Default behavior for cmd module when input is invalid"""
+        argdict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        m = re.search(r"\.", arg)
+        if m is not None:
+            ags = [arg[:m.span()[0]], arg[m.span()[1]:]]
+            m = re.search(r"\((.*?)\)", ags[1])
+            if m is not None:
+                c = [ags[1][:m.span()[0]], m.group()[1:-1]]
+                if c[0] in argdict.keys():
+                    call = "{} {}".format(ags[0], c[1])
+                    return argdict[c[0]](call)
+        print("*** Unknown syntax: {}".format(arg))
+        return False
+
+    def do_count(self, arg):
+        """Retrieve the number of instances of a given class."""
+        ags = arg.split()
+        count = 0
+        for obj in storage.all().values():
+            if ags[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
