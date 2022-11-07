@@ -1,0 +1,15 @@
+body {
+	font-color: #484848;
+	font-size: 14px;
+	font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.container{
+	height: 70px;
+	width: 100%;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	color:#FFFFFF;
+	height:70px;
+	border: 1px #DDDDDD;
+	border-radius: 4px;	
+}
